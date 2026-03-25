@@ -7,6 +7,11 @@ import jakarta.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
+import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.ArrayList;
@@ -26,8 +31,9 @@ public class Utilizador implements Serializable {
     private boolean isGestorRotas;
     private boolean isGestor;
     private boolean isLoja;
+    private boolean isArmazem;
 
-    public Utilizador( String nome, String password, Date dn, boolean isAdmin, boolean isGestorRotas, boolean isGestor, boolean isLoja) {
+    public Utilizador( String nome, String password, Date dn, boolean isAdmin, boolean isGestorRotas, boolean isGestor, boolean isLoja,boolean isArmazem) {
         this.nome = nome;
         this.password = password;
         this.dn = dn;
@@ -35,10 +41,22 @@ public class Utilizador implements Serializable {
         this.isGestorRotas = isGestorRotas;
         this.isGestor = isGestor;
         this.isLoja = isLoja;
+        this.isArmazem = isArmazem;
+
     }
 
     public Utilizador() {
 
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        if (isAdmin) authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        if (isGestorRotas) authorities.add(new SimpleGrantedAuthority("ROLE_GESTOR_ROTAS"));
+        if (isGestor) authorities.add(new SimpleGrantedAuthority("ROLE_GESTOR"));
+        if (isLoja) authorities.add(new SimpleGrantedAuthority("ROLE_LOJA"));
+        if (isArmazem) authorities.add(new SimpleGrantedAuthority("ROLE_ARMAZEM"));
+        return authorities;
     }
 
     public void setId(Long id) {
