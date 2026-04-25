@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class Utilizador implements Serializable {
+public class Utilizador implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue
@@ -49,6 +49,7 @@ public class Utilizador implements Serializable {
 
     }
 
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
         if (isAdmin) authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
@@ -73,10 +74,12 @@ public class Utilizador implements Serializable {
         this.nome = nome;
     }
 
+    @Override
     public String getUsername() {
         return nome;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -117,6 +120,33 @@ public class Utilizador implements Serializable {
     }
     public void setLoja(boolean loja) {
         isLoja = loja;
+    }
+
+    public boolean isArmazem() {
+        return isArmazem;
+    }
+    public void setArmazem(boolean armazem) {
+        isArmazem = armazem;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
 }
