@@ -9,8 +9,10 @@ import java.time.Instant;
 @Entity
 @Table(name = "requesicao_stock")
 public class RequesicaoStock {
+
     @Id
-    @ColumnDefault("nextval('requesicao_stock_id_seq')")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "requesicao_stock_seq", sequenceName = "requesicao_stock_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Integer id;
 

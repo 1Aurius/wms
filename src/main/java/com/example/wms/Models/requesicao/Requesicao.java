@@ -9,7 +9,8 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name = "requesicao")
 public class Requesicao {
     @Id
-    @ColumnDefault("nextval('requesicao_id_seq')")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "requesicao_seq")
+    @SequenceGenerator(name = "requesicao_seq", sequenceName = "requesicao_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Integer id;
 

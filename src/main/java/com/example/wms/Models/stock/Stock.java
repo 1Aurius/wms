@@ -8,8 +8,9 @@ import org.hibernate.annotations.ColumnDefault;
 @Entity
 @Table(name = "stock")
 public class Stock {
+
     @Id
-    @ColumnDefault("nextval('stock_id_seq')")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 

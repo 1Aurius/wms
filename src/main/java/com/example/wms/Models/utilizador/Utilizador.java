@@ -1,36 +1,59 @@
 package com.example.wms.Models.utilizador;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-import java.io.Serializable;
-import java.util.Date;
-
-import jakarta.persistence.*;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.UniqueConstraint;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(
+        name = "utilizador",
+        uniqueConstraints = @UniqueConstraint(name = "uk_utilizador_nome", columnNames = "nome")
+)
 public class Utilizador implements Serializable, UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(nullable = false, unique = true)
     private String nome;
+
+    @Column(nullable = false)
     private String password;
+
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
     private Date dn;
+
+    @Column(nullable = false)
     private boolean isAdmin;
+
+    @Column(nullable = false)
     private boolean isGestorRotas;
+
+    @Column(nullable = false)
     private boolean isGestor;
+
+    @Column(nullable = false)
     private boolean isLoja;
+
+    @Column(nullable = false)
     private boolean isArmazem;
 
     public Utilizador( String nome, String password, Date dn, boolean isAdmin, boolean isGestorRotas, boolean isGestor, boolean isLoja,boolean isArmazem) {

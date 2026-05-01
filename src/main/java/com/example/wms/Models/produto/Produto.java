@@ -8,7 +8,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name = "produto")
 public class Produto {
     @Id
-    @ColumnDefault("nextval('produto_id_seq')")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 

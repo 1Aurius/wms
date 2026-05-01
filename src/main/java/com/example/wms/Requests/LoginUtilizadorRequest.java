@@ -1,5 +1,6 @@
 package com.example.wms.Requests;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -7,6 +8,7 @@ public class LoginUtilizadorRequest {
 
     @NotBlank(message = "Username is required")
     @Size(min = 3, message = "Username must be at least 3 characters")
+    @JsonAlias({"nome"})
     private String username;
 
 
