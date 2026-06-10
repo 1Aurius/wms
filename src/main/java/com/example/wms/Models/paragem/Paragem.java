@@ -47,4 +47,28 @@ public class Paragem {
     public void setDh_saida(Date dh_saida) {
         this.dh_saida = dh_saida;
     }
+
+    @jakarta.persistence.ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
+    @jakarta.persistence.JoinColumn(name = "rota_id")
+    private com.example.wms.Models.rota.Rota rota;
+
+    @jakarta.persistence.ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
+    @jakarta.persistence.JoinColumn(name = "posto_id")
+    private com.example.wms.Models.posto.Posto posto;
+
+    public com.example.wms.Models.rota.Rota getRota() {
+        return rota;
+    }
+
+    public void setRota(com.example.wms.Models.rota.Rota rota) {
+        this.rota = rota;
+    }
+
+    public com.example.wms.Models.posto.Posto getPosto() {
+        return posto;
+    }
+
+    public void setPosto(com.example.wms.Models.posto.Posto posto) {
+        this.posto = posto;
+    }
 }

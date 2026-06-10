@@ -24,6 +24,24 @@ public class RequesicaoStockController {
         return ResponseEntity.ok(service.getAll());
     }
 
+    @GetMapping("/headers")
+    public ResponseEntity<List<com.example.wms.Responses.RequesicaoStockHeaderResponse>> getAllHeaders() {
+        return ResponseEntity.ok(service.getAllHeaders());
+    }
+
+    @PostMapping("/headers")
+    public ResponseEntity<com.example.wms.Responses.RequesicaoStockHeaderResponse> createHeader(@RequestBody com.example.wms.Requests.RequesicaoStockHeaderRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.createHeader(request.descricao(), request.utilizadorCriadorId()));
+    }
+
+    @PutMapping("/headers/{id}/validate")
+    public ResponseEntity<com.example.wms.Responses.RequesicaoStockHeaderResponse> validate(
+            @PathVariable Integer id,
+            @RequestParam Long validadorId,
+            @RequestParam String status) {
+        return ResponseEntity.ok(service.validate(id, validadorId, status));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<RequisicaoStockResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getById(id));

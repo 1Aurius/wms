@@ -10,6 +10,7 @@ import java.time.Instant;
 @Table(name = "equipa")
 public class Equipa {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ColumnDefault("nextval('equipa_id_seq')")
     @Column(name = "id", nullable = false)
     private Integer id;

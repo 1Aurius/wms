@@ -10,6 +10,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name = "rota")
 public class Rota {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ColumnDefault("nextval('rota_id_seq')")
     @Column(name = "id", nullable = false)
     private Integer id;
@@ -78,6 +79,28 @@ public class Rota {
 
     public void setEquipaTransporte(Equipa equipaTransporte) {
         this.equipaTransporte = equipaTransporte;
+    }
+
+    @Column(name = "data_prevista")
+    private java.time.LocalDate dataPrevista;
+
+    @OneToMany(mappedBy = "rota")
+    private java.util.List<com.example.wms.Models.paragem.Paragem> paragens;
+
+    public java.time.LocalDate getDataPrevista() {
+        return dataPrevista;
+    }
+
+    public void setDataPrevista(java.time.LocalDate dataPrevista) {
+        this.dataPrevista = dataPrevista;
+    }
+
+    public java.util.List<com.example.wms.Models.paragem.Paragem> getParagens() {
+        return paragens;
+    }
+
+    public void setParagens(java.util.List<com.example.wms.Models.paragem.Paragem> paragens) {
+        this.paragens = paragens;
     }
 
 }
